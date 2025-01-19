@@ -1,0 +1,2 @@
+data['bonus'] = data['salary'] * 0.1  # 添加一个新的奖金列
+print(data.head())
