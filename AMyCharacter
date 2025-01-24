@@ -1,0 +1,4 @@
+void AMyCharacter::AdjustJumpHeight(float NewHeight)
+{
+    GetCharacterMovement()->JumpZVelocity = NewHeight;
+}
