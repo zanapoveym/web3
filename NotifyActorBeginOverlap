@@ -1,0 +1,8 @@
+void AMyTriggerVolume::NotifyActorBeginOverlap(AActor* OtherActor)
+{
+    if (OtherActor && OtherActor->IsA(APlayerCharacter::StaticClass()))
+    {
+        UE_LOG(LogTemp, Warning, TEXT("Player entered the trigger volume!"));
+        OnPlayerEnter.Broadcast();
+    }
+}
