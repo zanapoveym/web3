@@ -1,0 +1,7 @@
+void AMyActor::SpawnParticles()
+{
+	if (ParticleSystem)
+	{
+		UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), ParticleSystem, GetActorLocation(), FRotator::ZeroRotator, true);
+	}
+}
