@@ -1,0 +1,17 @@
+import smtplib
+from email.mime.text import MIMEText
+
+def send_email(to_email, subject, message):
+    sender_email = "your_email@example.com"
+    password = "your_password"
+    msg = MIMEText(message)
+    msg['Subject'] = subject
+    msg['From'] = sender_email
+    msg['To'] = to_email
+
+    with smtplib.SMTP_SSL("smtp.example.com", 465) as server:
+        server.login(sender_email, password)
+        server.sendmail(sender_email, to_email, msg.as_string())
+
+# 使用示例
+send_email("recipient@example.com", "Test Subject", "Hello! This is a test email.")
