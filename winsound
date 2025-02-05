@@ -1,0 +1,9 @@
+import time
+import winsound
+
+def remind(message, seconds):
+    time.sleep(seconds)
+    print(message)
+    winsound.Beep(440, 1000)  # 播放提示音
+
+remind("时间到了！", 10)
