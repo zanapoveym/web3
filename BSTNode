@@ -1,0 +1,55 @@
+class BSTNode:
+    def __init__(self, key):
+        self.key = key
+        self.left = None
+        self.right = None
+
+class BinarySearchTree:
+    def __init__(self):
+        self.root = None
+    
+    def insert(self, key):
+        self.root = self._insert_recursive(self.root, key)
+    
+    def _insert_recursive(self, node, key):
+        if node is None:
+            return BSTNode(key)
+        if key < node.key:
+            node.left = self._insert_recursive(node.left, key)
+        else:
+            node.right = self._insert_recursive(node.right, key)
+        return node
+    
+    def inorder(self):
+        self._inorder_recursive(self.root)
+        print()
+    
+    def _inorder_recursive(self, node):
+        if node:
+            self._inorder_recursive(node.left)
+            print(node.key, end=" ")
+            self._inorder_recursive(node.right)
+    
+    def search(self, key):
+        return self._search_recursive(self.root, key)
+    
+    def _search_recursive(self, node, key):
+        if node is None or node.key == key:
+            return node
+        if key < node.key:
+            return self._search_recursive(node.left, key)
+        else:
+            return self._search_recursive(node.right, key)
+
+# 测试示例
+if __name__ == "__main__":
+    bst = BinarySearchTree()
+    for value in [50, 30, 70, 20, 40, 60, 80]:
+        bst.insert(value)
+    print("中序遍历:")
+    bst.inorder()  # 输出中序遍历序列（升序排列）
+    search_result = bst.search(40)
+    if search_result:
+        print("找到节点:", search_result.key)  # 输出：找到节点: 40
+    else:
+        print("节点不存在")
