@@ -1,0 +1,22 @@
+#pragma once
+
+#include "CoreMinimal.h"
+#include "GameFramework/Actor.h"
+#include "SpawnerActor.generated.h"
+
+UCLASS()
+class MYPROJECT_API ASpawnerActor : public AActor
+{
+    GENERATED_BODY()
+
+public:	
+    ASpawnerActor();
+
+protected:
+    virtual void BeginPlay() override;
+
+public:
+    // 在编辑器中指定要生成的 Actor 类型
+    UPROPERTY(EditAnywhere, Category="Spawning")
+    TSubclassOf<AActor> ActorToSpawn;
+};
