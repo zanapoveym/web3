@@ -1,0 +1,33 @@
+import ecdsa
+import hashlib
+
+def sign_message(private_key_hex, message):
+    """
+    使用私钥对消息进行签名
+    """
+    sk = ecdsa.SigningKey.from_string(bytes.fromhex(private_key_hex), curve=ecdsa.SECP256k1)
+    message_hash = hashlib.sha256(message.encode()).digest()
+    signature = sk.sign(message_hash)
+    return signature.hex()
+
+def verify_signature(public_key_hex, message, signature_hex):
+    """
+    使用公钥验证消息签名
+    """
+    vk = ecdsa.VerifyingKey.from_string(bytes.fromhex(public_key_hex), curve=ecdsa.SECP256k1)
+    message_hash = hashlib.sha256(message.encode()).digest()
+    try:
+        return vk.verify(bytes.fromhex(signature_hex), message_hash)
+    except ecdsa.BadSignatureError:
+        return False
+
+# 示例：注意这里的私钥仅用于演示，实际使用时请妥善管理私钥
+private_key = "1" * 64  # 示例私钥（64个字符的16进制字符串）
+sk = ecdsa.SigningKey.from_string(bytes.fromhex(private_key), curve=ecdsa.SECP256k1)
+public_key = sk.verifying_key.to_string().hex()
+
+message = "交易数据"
+signature = sign_message(private_key, message)
+print("签名:", signature)
+valid = verify_signature(public_key, message, signature)
+print("验证结果:", valid)
