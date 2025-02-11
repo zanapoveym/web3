@@ -1,0 +1,10 @@
+const account = '0xYourAccountAddress';  // 替换成实际的账户地址
+
+web3.eth.getBalance(account)
+  .then(balance => {
+    // 将余额从 Wei 转换为 Ether 显示
+    console.log('账户余额:', web3.utils.fromWei(balance, 'ether'), 'ETH');
+  })
+  .catch(error => {
+    console.error('查询余额失败:', error);
+  });
