@@ -1,0 +1,15 @@
+import random
+
+def estimate_pi(num_samples):
+    inside_circle = 0
+    for _ in range(num_samples):
+        x = random.uniform(-1, 1)
+        y = random.uniform(-1, 1)
+        if x*x + y*y <= 1:
+            inside_circle += 1
+    return (inside_circle / num_samples) * 4
+
+if __name__ == '__main__':
+    num_samples = 1_000_000
+    pi_estimate = estimate_pi(num_samples)
+    print(f"使用 {num_samples} 次抽样估计的 π 值：{pi_estimate}")
