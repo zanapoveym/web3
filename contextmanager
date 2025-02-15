@@ -1,0 +1,21 @@
+# 示例 7: 数据库连接的上下文管理器
+import sqlite3
+from contextlib import contextmanager
+
+@contextmanager
+def db_connection(db_file):
+    conn = sqlite3.connect(db_file)
+    try:
+        yield conn
+    finally:
+        conn.commit()
+        conn.close()
+
+if __name__ == '__main__':
+    with db_connection(':memory:') as conn:
+        cursor = conn.cursor()
+        cursor.execute("CREATE TABLE test (id INTEGER PRIMARY KEY, name TEXT)")
+        cursor.execute("INSERT INTO test (name) VALUES ('Alice')")
+        cursor.execute("SELECT * FROM test")
+        result = cursor.fetchall()
+        print("数据库内容:", result)
