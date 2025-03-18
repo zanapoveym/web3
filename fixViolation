@@ -1,0 +1,59 @@
+class Node {
+    int data;
+    Node parent, left, right;
+    boolean isRed;
+
+    public Node(int data) {
+        this.data = data;
+        isRed = true;
+    }
+}
+
+class RedBlackTree {
+    private Node root;
+
+    public void insert(int data) {
+        Node newNode = new Node(data);
+        root = insertBST(root, newNode);
+        fixViolation(newNode);
+    }
+
+    private Node insertBST(Node root, Node node) {
+        if (root == null) return node;
+
+        if (node.data < root.data) {
+            root.left = insertBST(root.left, node);
+            root.left.parent = root;
+        } else {
+            root.right = insertBST(root.right, node);
+            root.right.parent = root;
+        }
+        return root;
+    }
+
+    private void fixViolation(Node node) {
+        // 这里省略红黑树修复逻辑，涉及左旋、右旋、变色等
+    }
+    
+    public void inOrder(Node root) {
+        if (root != null) {
+            inOrder(root.left);
+            System.out.print(root.data + " ");
+            inOrder(root.right);
+        }
+    }
+
+    public Node getRoot() {
+        return root;
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        RedBlackTree tree = new RedBlackTree();
+        tree.insert(10);
+        tree.insert(20);
+        tree.insert(30);
+        tree.inOrder(tree.getRoot());
+    }
+}
