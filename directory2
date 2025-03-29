@@ -1,0 +1,3 @@
+#!/bin/bash
+tar -czvf backup.tar.gz /path/to/directory
+echo "备份已完成！"
