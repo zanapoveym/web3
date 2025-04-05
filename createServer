@@ -1,0 +1,13 @@
+const http = require('http');
+const url = require('url');
+
+const routes = {
+  '/': () => 'Home Page',
+  '/about': () => 'About Us',
+};
+
+http.createServer((req, res) => {
+  const path = url.parse(req.url).pathname;
+  res.writeHead(200, { 'Content-Type': 'text/plain' });
+  res.end(routes[path] ? routes[path]() : '404 Not Found');
+}).listen(3000);
